@@ -14,7 +14,7 @@ const Achievements = () => {
         Achievements
       </motion.h2>
       <div>
-        {ACHIEVEMENTS.map((achievement, index) => (
+        {ACHIEVEMENTS?.map((achievement, index) => (
           <div key={index} className="mb-8 flex flex-wrap lg:justify-center">
             <motion.div
               whileInView={{ opacity: 1, x: 0 }}
@@ -34,16 +34,18 @@ const Achievements = () => {
               <p className="mb-4 text-stone-400 text-justify">
                 {achievement.description}
               </p>
-              <div className="flex flex-wrap">
-                {achievement.technologies.map((technology, index) => (
-                  <span
-                    className="mr-2 mt-4 rounded bg-stone-900 px-2 py-1 text-sm font-medium text-stone-300 text-nowrap"
-                    key={index}
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
+              {achievement.technologies && achievement.technologies.length > 0 && (
+                <div className="flex flex-wrap">
+                  {achievement.technologies.map((technology, techIndex) => (
+                    <span
+                      className="mr-2 mt-4 rounded bg-stone-900 px-2 py-1 text-sm font-medium text-stone-300 text-nowrap"
+                      key={techIndex}
+                    >
+                      {technology}
+                    </span>
+                  ))}
+                </div>
+              )}
             </motion.div>
           </div>
         ))}

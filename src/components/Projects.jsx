@@ -4,57 +4,85 @@ import { PROJECTS } from "../constants";
 
 const Projects = () => {
   return (
-    <div className="pb-4">
-      <motion.h2
-        whileInView={{ opacity: 1, y: 0 }}
-        initial={{ opacity: 0, y: -100 }}
-        transition={{ duration: 0.5 }}
-        className="my-20 text-center text-4xl"
-      >
-        Projects
-      </motion.h2>
-      <div>
-        {PROJECTS.map((project, index) => (
-          <div key={index} className="mb-8 flex lg:justify-center">
+    <section className="py-20 px-4" id="projects">
+      <div className="max-w-7xl mx-auto">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center"
+        >
+          <p className="text-sm uppercase tracking-wider text-stone-500 mb-2">
+            My Work
+          </p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light">
+            Featured <span className="font-bold">Projects</span>
+          </h2>
+          <p className="mt-6 text-lg text-stone-400 max-w-3xl mx-auto">
+            A collection of projects I've worked on, showcasing my skills in full-stack development,
+            UI/UX design, and AI integration.
+          </p>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 gap-8">
+          {PROJECTS?.map((project, index) => (
             <motion.div
-              whileInView={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: -100 }}
-              transition={{ duration: 1 }}
-              className="justify-center w-full lg:w-1/4  hidden lg:flex"
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="group"
             >
-              <img
-                src={project.image}
-                className="mb-6 rounded"
-                width={250}
-                height={250}
-                alt={project.title}
-              />
+              <div className="flex flex-col lg:flex-row gap-6 p-6 bg-stone-900/30 border border-stone-800 rounded-2xl hover:border-stone-700 transition-all duration-300">
+                {/* Project Image */}
+                {project.image && (
+                  <div className="lg:w-1/3">
+                    <div className="relative overflow-hidden rounded-xl aspect-video lg:aspect-square">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Project Content */}
+                <div className={`flex-1 ${!project.image ? 'lg:w-full' : 'lg:w-2/3'}`}>
+                  {/* Title */}
+                  <div className="mb-4">
+                    <h3 className="text-2xl font-semibold text-stone-100 mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-stone-400 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  {/* Technologies */}
+                  {project.technologies && project.technologies.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((technology, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-3 py-1 text-xs font-medium bg-stone-800 text-stone-300 rounded-full border border-stone-700"
+                        >
+                          {technology}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
             </motion.div>
-            <motion.div
-              whileInView={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: 100 }}
-              transition={{ duration: 1 }}
-              className="w-full text-center lg:text-start lg:w-3/4"
-            >
-              <h3 className="mb-2 font-semibold text-2xl text-center lg:text-start">
-                {project.title}
-              </h3>
-              <p className="mb-4 text-stone-400 text-justify">
-                {project.description}
-              </p>
-              {project.technologies.map((technology, index) => (
-                <span
-                  className="mr-2 rounded bg-stone-900 p-2 text-sm font-medium text-stone-300"
-                  key={index}
-                >
-                  {technology}
-                </span>
-              ))}
-            </motion.div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
